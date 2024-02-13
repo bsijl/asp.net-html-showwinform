@@ -60,6 +60,7 @@ namespace HttpServer {
             // 获取断开连接的客户端标识
             if(MainForm.player.InvokeRequired) {
                 MainForm.player.Invoke(new Action(() => {
+                    Helper.SetParent(MainForm.PlayerHandle,IntPtr.Zero);
                     MainForm.player.Hide();
                 }));
             } else {
