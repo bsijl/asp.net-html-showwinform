@@ -4,8 +4,8 @@
  * ASP.NET SignalR JavaScript Library 2.4.3
  * http://signalr.net/
  *
- * Copyright (c) .NET Foundation. All rights reserved.
- * Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+ * 版权所有 (c) .NET Foundation。保留所有权利。
+ * 根项目中的License.txt中的Apache许可证版本2.0许可。有关许可信息，请参阅根目录中的License.txt。
  *
  */
 
@@ -14,35 +14,35 @@
 (function ($, window, undefined) {
 
     var resources = {
-        nojQuery: "jQuery was not found. Please ensure jQuery is referenced before the SignalR client JavaScript file.",
-        noTransportOnInit: "No transport could be initialized successfully. Try specifying a different transport or none at all for auto initialization.",
-        errorOnNegotiate: "Error during negotiation request.",
-        stoppedWhileLoading: "The connection was stopped during page load.",
-        stoppedWhileNegotiating: "The connection was stopped during the negotiate request.",
-        errorParsingNegotiateResponse: "Error parsing negotiate response.",
-        errorRedirectionExceedsLimit: "Negotiate redirection limit exceeded.",
-        errorDuringStartRequest: "Error during start request. Stopping the connection.",
-        errorFromServer: "Error message received from the server: '{0}'.",
-        stoppedDuringStartRequest: "The connection was stopped during the start request.",
-        errorParsingStartResponse: "Error parsing start response: '{0}'. Stopping the connection.",
-        invalidStartResponse: "Invalid start response: '{0}'. Stopping the connection.",
-        protocolIncompatible: "You are using a version of the client that isn't compatible with the server. Client version {0}, server version {1}.",
-        aspnetCoreSignalrServer: "Detected a connection attempt to an ASP.NET Core SignalR Server. This client only supports connecting to an ASP.NET SignalR Server. See https://aka.ms/signalr-core-differences for details.",
-        sendFailed: "Send failed.",
-        parseFailed: "Failed at parsing response: {0}",
-        longPollFailed: "Long polling request failed.",
-        eventSourceFailedToConnect: "EventSource failed to connect.",
-        eventSourceError: "Error raised by EventSource",
-        webSocketClosed: "WebSocket closed.",
-        pingServerFailedInvalidResponse: "Invalid ping response when pinging server: '{0}'.",
-        pingServerFailed: "Failed to ping server.",
-        pingServerFailedStatusCode: "Failed to ping server.  Server responded with status code {0}, stopping the connection.",
-        pingServerFailedParse: "Failed to parse ping server response, stopping the connection.",
-        noConnectionTransport: "Connection is in an invalid state, there is no transport active.",
-        webSocketsInvalidState: "The Web Socket transport is in an invalid state, transitioning into reconnecting.",
-        reconnectTimeout: "Couldn't reconnect within the configured timeout of {0} ms, disconnecting.",
-        reconnectWindowTimeout: "The client has been inactive since {0} and it has exceeded the inactivity timeout of {1} ms. Stopping the connection.",
-        jsonpNotSupportedWithAccessToken: "The JSONP protocol does not support connections that require a Bearer token to connect, such as the Azure SignalR Service."
+        nojQuery: "未找到jQuery。请确保在SignalR客户端JavaScript文件之前引用了jQuery。",
+        noTransportOnInit: "无法成功初始化传输。尝试指定不同的传输方式，或者取消自动初始化。",
+        errorOnNegotiate: "在协商请求期间发生错误。",
+        stoppedWhileLoading: "连接在页面加载期间被停止。",
+        stoppedWhileNegotiating: "连接在协商请求期间被停止。",
+        errorParsingNegotiateResponse: "解析协商响应时出错。",
+        errorRedirectionExceedsLimit: "超过了协商重定向限制。",
+        errorDuringStartRequest: "启动请求期间出错。连接被停止。",
+        errorFromServer: "从服务器接收到错误消息：'{0}'。",
+        stoppedDuringStartRequest: "连接在启动请求期间被停止。",
+        errorParsingStartResponse: "解析启动响应出错：'{0}'。连接被停止。",
+        invalidStartResponse: "无效的启动响应：'{0}'。连接被停止。",
+        protocolIncompatible: "您正在使用与服务器不兼容的客户端版本。客户端版本{0}，服务器版本{1}。",
+        aspnetCoreSignalrServer: "检测到连接尝试到ASP.NET Core SignalR服务器。此客户端仅支持连接到ASP.NET SignalR服务器。请参阅https://aka.ms/signalr-core-differences了解详情。",
+        sendFailed: "发送失败。",
+        parseFailed: "解析响应失败：{0}",
+        longPollFailed: "长轮询请求失败。",
+        eventSourceFailedToConnect: "EventSource连接失败。",
+        eventSourceError: "EventSource引发的错误",
+        webSocketClosed: "WebSocket已关闭。",
+        pingServerFailedInvalidResponse: "在向服务器发送ping时收到无效的响应：'{0}'。",
+        pingServerFailed: "无法ping服务器。",
+        pingServerFailedStatusCode: "无法ping服务器。服务器以状态码{0}响应，连接被停止。",
+        pingServerFailedParse: "无法解析ping服务器响应，连接被停止。",
+        noConnectionTransport: "连接处于无效状态，没有活动的传输。",
+        webSocketsInvalidState: "Web Socket传输处于无效状态，正在转换为重新连接状态。",
+        reconnectTimeout: "无法在配置的超时时间{0}毫秒内重新连接，断开连接。",
+        reconnectWindowTimeout: "客户端自{0}以来处于非活动状态，已超过{1}毫秒的非活动超时时间。停止连接。",
+        jsonpNotSupportedWithAccessToken: "JSONP协议不支持需要Bearer令牌连接的连接，例如Azure SignalR服务。"
     };
 
     if (typeof ($) !== "function") {
