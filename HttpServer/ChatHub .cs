@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Newtonsoft.Json;
 using System;
@@ -18,10 +18,8 @@ namespace HttpServer {
         public void SendMessage(string opt,string msg) {
             // 处理客户端发送的消息
             // 在这里可以实现您的自定义逻辑，比如将消息广播给所有连接的客户端
-            //Clients.Client(MainForm.HtmlClinetId).SendAsync(opt,msg);
-            Clients.Caller.SendMessage(opt,msg);
             switch(opt) {
-                case "HtmlClinetOK":
+                case "HtmlClinetOK"://每次刷新都会进行连接，所以这里是不是要做一下判断--好像没有必要
                 WinInfo  winInfo=JsonConvert.DeserializeObject<WinInfo>(msg);
                 IntPtr bh= FindWindow(winInfo.title);
                 int style=Helper.GetWindowLong(MainForm.PlayerHandle,Helper.GWL_STYLE);
@@ -30,12 +28,26 @@ namespace HttpServer {
                         //https://blog.csdn.net/qq_59075481/article/details/133581281  SetParent 函数修改父窗口的误区
                         IntPtr i= Helper.SetParent(MainForm.PlayerHandle,bh);
                         //MainForm.player.Show();
-                        Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,0);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
+                        Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
                     }));
                 } else {
                     MainForm.player.Hide();
                 }
                     break;
+                case "ShowWin":
+                if(MainForm.player.InvokeRequired) {
+                    MainForm.player.Invoke(new Action(() => {
+                        MainForm.player.Show();
+                    }));
+                    }
+                    break;
+                case "HideWin":
+                if(MainForm.player.InvokeRequired) {
+                    MainForm.player.Invoke(new Action(() => {
+                        MainForm.player.Hide();
+                    }));
+                }
+                break;
                 default:
                 break;
             }
@@ -47,8 +59,8 @@ namespace HttpServer {
             // 可以在这里记录连接信息、向其他客户端发送通知等
             // 例如，可以将新连接的客户端添加到一个列表中，以便跟踪在线用户
             // 获取连接的客户端标识
-           
             // 返回一个已完成的任务
+            Clients.Caller.SendMessage("HtmlClientOK","客户端已连接！");
             return Task.CompletedTask;
         }
         // 客户端断开事件
@@ -58,10 +70,11 @@ namespace HttpServer {
             // 例如，可以从在线用户列表中移除断开的客户端
             MainForm.BrowserHandle=(IntPtr)0;
             // 获取断开连接的客户端标识
+            Helper.SetParent(MainForm.PlayerHandle,IntPtr.Zero);
             if(MainForm.player.InvokeRequired) {
                 MainForm.player.Invoke(new Action(() => {
-                    Helper.SetParent(MainForm.PlayerHandle,IntPtr.Zero);
                     MainForm.player.Hide();
+                  
                 }));
             } else {
                 MainForm.player.Hide();
