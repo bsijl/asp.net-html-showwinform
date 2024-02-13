@@ -1,6 +1,8 @@
 # asp.net-html-showwinform
 使用asp.net在html页面上显示windows窗口,播放rtsp视频
 
+如果GitHub上有类似的项目，烦请读者给个链接，谢谢！
+
 本项目我只是将想法写了出来，很多没有实现，希望有兴趣的或是愿意帮助和改进的一起完善。代码中的注释，变量命名等都可修改。
 
 代码分为2个部分：HttpServer HttpClinet 下载测试需要安装signalR-2.4.3 NuGet包
