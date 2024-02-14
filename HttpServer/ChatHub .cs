@@ -62,10 +62,10 @@ namespace HttpServer {
                             Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
                             MainForm.player.SetWinSize();
                         }));
+                    } else {
+                        Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
+                        MainForm.player.SetWinSize();
                     }
-                } else {
-                    Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
-                    MainForm.player.SetWinSize();
                 }
                 break;
             }
