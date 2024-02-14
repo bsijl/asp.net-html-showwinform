@@ -23,9 +23,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.mouseRightMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exitFullScreen = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -34,6 +37,7 @@
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.SuspendLayout();
+            this.mouseRightMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -91,12 +95,28 @@
             this.splitContainer3.SplitterDistance = 250;
             this.splitContainer3.TabIndex = 0;
             // 
+            // mouseRightMenu
+            // 
+            this.mouseRightMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mouseRightMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitFullScreen});
+            this.mouseRightMenu.Name = "mouseRightMenu";
+            this.mouseRightMenu.Size = new System.Drawing.Size(211, 56);
+            // 
+            // exitFullScreen
+            // 
+            this.exitFullScreen.Name = "exitFullScreen";
+            this.exitFullScreen.Size = new System.Drawing.Size(210, 24);
+            this.exitFullScreen.Text = "退出全屏";
+            this.exitFullScreen.Click += new System.EventHandler(this.exitFullScreen_Click);
+            // 
             // PlayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(500, 500);
+            this.ContextMenuStrip = this.mouseRightMenu;
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -106,6 +126,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PlayerForm";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayerForm_MouseClick);
             this.Resize += new System.EventHandler(this.PlayerForm_Resize);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -115,6 +136,7 @@
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            this.mouseRightMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -124,5 +146,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.ContextMenuStrip mouseRightMenu;
+        private System.Windows.Forms.ToolStripMenuItem exitFullScreen;
     }
 }

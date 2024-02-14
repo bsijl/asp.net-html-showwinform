@@ -31,32 +31,44 @@ namespace HttpServer {
                     MainForm.player.Invoke(new Action(() => {
                         //https://blog.csdn.net/qq_59075481/article/details/133581281  SetParent 函数修改父窗口的误区
                         IntPtr i= Helper.SetParent(MainForm.PlayerHandle,bh);
-                        //MainForm.player.Show();
+                        MainForm.player.Visible=true;
                         Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
                     }));
                 } else {
-                    MainForm.player.Hide();
+                    MainForm.player.Visible=true ;
                 }
                 break;
                 case "ShowWin":
                 if(MainForm.player.InvokeRequired) {
                     MainForm.player.Invoke(new Action(() => {
-                        MainForm.player.Show();
+                        MainForm.player.Visible=true;//用Visible不用Show是因为Show好像不会改变Visible,Hide可以改变这个值。为SetZoomScale设置使用这个方法
                     }));
+                } else {
+                    MainForm.player.Visible=true;
                 }
                 break;
                 case "HideWin":
                 if(MainForm.player.InvokeRequired) {
                     MainForm.player.Invoke(new Action(() => {
-                        MainForm.player.Hide();
+                        MainForm.player.Visible=false;
                     }));
+                } else {
+                    MainForm.player.Visible=false;
                 }
                 break;
-
+                case "fullScreen":
+                    if(MainForm.player.InvokeRequired) {
+                    MainForm.player.Invoke(new Action(() => {
+                        MainForm.player.WindowState=FormWindowState.Maximized;
+                    }));
+                   
+                } else {
+                    MainForm.player.WindowState=FormWindowState.Maximized;
+                }
+                break;
                 case "SetZoomScale":
                 winInfo=JsonConvert.DeserializeObject<WinInfo>(msg);
                 if(MainForm.player.Visible) {
-                   
                     if(MainForm.player.InvokeRequired) {
                         MainForm.player.Invoke(new Action(() => {
                             Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
@@ -101,11 +113,10 @@ namespace HttpServer {
             Helper.SetParent(MainForm.PlayerHandle,IntPtr.Zero);
             if(MainForm.player.InvokeRequired) {
                 MainForm.player.Invoke(new Action(() => {
-                    MainForm.player.Hide();
-
+                    MainForm.player.Visible=false;
                 }));
             } else {
-                MainForm.player.Hide();
+                MainForm.player.Visible=false;
             }
             // 向其他客户端发送通知，告知有客户端断开连接
             //Clients.Others.SendAsync("UserDisconnected",connectionId);

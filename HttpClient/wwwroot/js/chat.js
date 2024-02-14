@@ -3,6 +3,7 @@
 //请参阅Es5 - chat.js，其中包含了上述代码的Babel转译版本。
 var connection = $.hubConnection("http://localhost:8082/signalr", { useDefaultPath: false });
 var proxy = connection.createHubProxy('ChatHub');
+let isSetFormSize = false;//SetZoomScale里判断，在onresize、sendButton2设置，目的是不重复向服务器发送数据。
 window.onload = () => {
     //#region 接收消息      
     proxy.on('SendMessage', function (opt, message) {
@@ -52,16 +53,20 @@ window.onload = () => {
     //#endregion
 };
 
-window.onresize = (hb, e) => {//这里不能放代码，柱塞太严重
-    
+window.onresize = (hb, e) => {
+    //这里不能放函数，柱塞太严重--放个变量都不太行，但是不耽误用，具体表现在点最大化按钮看不出来，当缩小的时候，用招标调整浏览器的时候失效。
+    isSetFormSize = true;
 }
 function SetZoomScale() {
-    setTimeout(SetZoomScale, 450); 
-    let winInfo = {
-        title: document.title,
-        rect: getLocationInfo("video")
+    setTimeout(SetZoomScale, 450);
+    if (isSetFormSize) {
+        isSetFormSize = false;
+        let winInfo = {
+            title: document.title,
+            rect: getLocationInfo("video")
+        }
+         proxy.invoke('SendMessage', 'SetZoomScale', JSON.stringify(winInfo))
     }
-    proxy.invoke('SendMessage', 'SetZoomScale', JSON.stringify(winInfo))
 }
 document.getElementById("sendButton1").addEventListener("click", event => {
     proxy.invoke("SendMessage", "HideWin", "");
@@ -69,6 +74,11 @@ document.getElementById("sendButton1").addEventListener("click", event => {
 document.getElementById("sendButton2").addEventListener("click", event => {
 
     proxy.invoke("SendMessage", "ShowWin", "");
+    isSetFormSize = true;
+});
+document.getElementById("sendButton3").addEventListener("click", event => {
+    proxy.invoke("SendMessage", "fullScreen", "");
+    isSetFormSize = false;
 });
 // 获取位置信息--这里的不准确，该怎么调整？但是这段代码在另外一个程序里运行没问题
 function getLocationInfo(id) {
@@ -87,8 +97,8 @@ function getLocationInfo(id) {
         };
     } else {
         return {
-            left: Math.floor(elt.getBoundingClientRect().left * getZoomScale() +6),//* getZoomScale()
-            top: Math.floor(elt.getBoundingClientRect().top * getZoomScale() + (window.outerHeight - window.innerHeight)+15),//差的这个15是什么？
+            left: Math.floor(elt.getBoundingClientRect().left * getZoomScale() + 6),//* getZoomScale()
+            top: Math.floor(elt.getBoundingClientRect().top * getZoomScale() + (window.outerHeight - window.innerHeight) + 15),//差的这个15是什么？
             width: Math.floor(elt.getBoundingClientRect().width * getZoomScale()),//  * getZoomScale()
             height: Math.floor(elt.getBoundingClientRect().height * getZoomScale()),// * getZoomScale()
             screenLeft: Math.floor(window.screenLeft)
