@@ -1,6 +1,8 @@
-using Microsoft.AspNet.SignalR;
+﻿using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +16,9 @@ using System.Windows.Forms;
 
 namespace HttpServer {
     public class ChatHub:Hub {
-        
+        //public MainForm mainForm=new MainForm();
+        string currentTime = DateTime.Now.ToString();
+        //string? currentTime = dateTime.ToString("yyyy-MM-dd HH:mm:ss");
         public void SendMessage(string opt,string msg) {
             // 处理客户端发送的消息
             // 在这里可以实现您的自定义逻辑，比如将消息广播给所有连接的客户端
@@ -33,14 +37,14 @@ namespace HttpServer {
                 } else {
                     MainForm.player.Hide();
                 }
-                    break;
+                break;
                 case "ShowWin":
                 if(MainForm.player.InvokeRequired) {
                     MainForm.player.Invoke(new Action(() => {
                         MainForm.player.Show();
                     }));
-                    }
-                    break;
+                }
+                break;
                 case "HideWin":
                 if(MainForm.player.InvokeRequired) {
                     MainForm.player.Invoke(new Action(() => {
@@ -48,7 +52,21 @@ namespace HttpServer {
                     }));
                 }
                 break;
-                default:
+
+                case "SetZoomScale":
+                winInfo=JsonConvert.DeserializeObject<WinInfo>(msg);
+                if(MainForm.player.Visible) {
+                   
+                    if(MainForm.player.InvokeRequired) {
+                        MainForm.player.Invoke(new Action(() => {
+                            Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
+                            MainForm.player.SetWinSize();
+                        }));
+                    }
+                } else {
+                    Helper.SetWindowPos(MainForm.PlayerHandle,IntPtr.Zero,winInfo.rect.left,winInfo.rect.top,winInfo.rect.width,winInfo.rect.height,Helper.SWP_SHOWWINDOW);//Helper.SWP_SHOWWINDOW|Helper.WS_CHILD
+                    MainForm.player.SetWinSize();
+                }
                 break;
             }
 
@@ -60,6 +78,14 @@ namespace HttpServer {
             // 例如，可以将新连接的客户端添加到一个列表中，以便跟踪在线用户
             // 获取连接的客户端标识
             // 返回一个已完成的任务
+            MainForm.ConnNum++;
+            if(!MainForm.FirstConnStatus) {
+                MainForm.FirstConnStatus=true;
+                MainForm.form.SetLabelText("firstTime",currentTime);
+            }
+            MainForm.form.SetLabelText("theNthTime",currentTime);
+            MainForm.form.SetLabelText("connNum",MainForm.ConnNum.ToString());
+            MainForm.form.SetLabelText("connStatus","客户端已连接");
             Clients.Caller.SendMessage("HtmlClientOK","客户端已连接！");
             return Task.CompletedTask;
         }
@@ -69,12 +95,14 @@ namespace HttpServer {
             // 可以在这里清理连接信息、向其他客户端发送通知等
             // 例如，可以从在线用户列表中移除断开的客户端
             MainForm.BrowserHandle=(IntPtr)0;
+            MainForm.form.SetLabelText("connStatus","客户端已断开");
+            MainForm.form.SetLabelText("breakTime",currentTime);
             // 获取断开连接的客户端标识
             Helper.SetParent(MainForm.PlayerHandle,IntPtr.Zero);
             if(MainForm.player.InvokeRequired) {
                 MainForm.player.Invoke(new Action(() => {
                     MainForm.player.Hide();
-                  
+
                 }));
             } else {
                 MainForm.player.Hide();

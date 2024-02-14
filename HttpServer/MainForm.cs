@@ -4,6 +4,8 @@ using Microsoft.Owin.Cors;
 using Microsoft.Owin.Hosting;
 using Owin;
 using System;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static HttpServer.MainForm;
 [assembly: OwinStartup(typeof(Startup))]//注意这个，ChatGPT是这样说的
@@ -17,11 +19,25 @@ namespace HttpServer {
         private IDisposable signalR;
         public static IntPtr BrowserHandle=(IntPtr)0;
         public static IntPtr PlayerHandle=player.Handle;
+        public static bool FirstConnStatus=false;//是否是初次连接，确定服务器第一次被使用的时间
+        public static int ConnNum=0;//总的连接次数
+        public static MainForm form;
+        //public string label_connStatusSetText {
+        //    get { return label_connStatus.Text; }
+        //    set { this.label_connStatus.Text=value; }
+        //}
+
+        #region 静态化Label
+        //在MainForm.Designer.cs中静态化了
+        //public static label_connStatus lb_firstTime=new System.Windows.Forms.Label();
+
+        #endregion
         public MainForm() {
             InitializeComponent();
         }
         #region 窗体自身事件
         private void MainForm_Load(object sender,EventArgs e) {
+            form =sender as MainForm;
             MainForm.player.Show();
             // 启动 SignalR 服务
             signalR=WebApp.Start("http://localhost:8082");
@@ -30,7 +46,7 @@ namespace HttpServer {
             if(e.CloseReason==CloseReason.UserClosing) {
                 e.Cancel=true;
                 Hide();
-              
+
             }
         }
         #endregion
@@ -44,17 +60,14 @@ namespace HttpServer {
         }
 
         private void toolStripExit_Click(object sender,EventArgs e) {
-          Application.Exit();
+            Application.Exit();
         }
 
         private void toolStripShow_Click(object sender,EventArgs e) {
             Show();
         }
 
-        private void timer1_Tick(object sender,EventArgs e) {
-            Hide(); player.Hide();
-            timer1.Stop();
-        }
+
         #endregion
         public class Startup {
             public void Configuration(IAppBuilder app) {
@@ -67,5 +80,44 @@ namespace HttpServer {
                 GlobalHost.DependencyResolver.Register(typeof(ChatHub),() => new ChatHub());
             }
         }
+        #region   任务栏控件及时间控件
+        private void timer1_Tick(object sender,EventArgs e) {
+            Hide(); player.Hide();
+            timer1.Stop();
+        }
+
+        private void notifyIcon_MouseMove(object sender,MouseEventArgs e) {
+            // this.notifyIcon.ShowBalloonTip(3000);win11不能用，不信你开开试试
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender,MouseEventArgs e) {
+            this.Show();
+        }
+        #endregion
+        #region 自定义Label文本设置
+        public void SetLabelText(string selectLabel,string value) {
+            if(InvokeRequired) {
+                this.Invoke(new Action(() => {
+                    switch(selectLabel) {
+                        case "connStatus":
+                        label_connStatus.Text=value;
+                        break;
+                        case "connNum":
+                        label_connNum.Text=value;
+                        break;
+                        case "firstTime":
+                        label_firstTime.Text=value;
+                        break;
+                        case "theNthTime":
+                        label_theNthTime.Text=value;
+                        break;
+                        case "breakTime":
+                        label_breakTime.Text=value;
+                        break;
+                    }
+                }));
+            } 
+        }
+        #endregion
     }
 }

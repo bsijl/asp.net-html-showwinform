@@ -4,8 +4,8 @@
  * ASP.NET SignalR JavaScript Library 2.4.3
  * http://signalr.net/
  *
- * ç‰ˆæƒæ‰€æœ‰ (c) .NET Foundationã€‚ä¿ç•™æ‰€æœ‰æƒåˆ©ã€‚
- * æ ¹é¡¹ç›®ä¸­çš„License.txtä¸­çš„Apacheè®¸å¯è¯ç‰ˆæœ¬2.0è®¸å¯ã€‚æœ‰å…³è®¸å¯ä¿¡æ¯ï¼Œè¯·å‚é˜…æ ¹ç›®å½•ä¸­çš„License.txtã€‚
+ * °æÈ¨ËùÓĞ (c) .NET Foundation¡£±£ÁôËùÓĞÈ¨Àû¡£
+ * ¸ùÏîÄ¿ÖĞµÄLicense.txtÖĞµÄApacheĞí¿ÉÖ¤°æ±¾2.0Ğí¿É¡£ÓĞ¹ØĞí¿ÉĞÅÏ¢£¬Çë²ÎÔÄ¸ùÄ¿Â¼ÖĞµÄLicense.txt¡£
  *
  */
 
@@ -14,35 +14,35 @@
 (function ($, window, undefined) {
 
     var resources = {
-        nojQuery: "æœªæ‰¾åˆ°jQueryã€‚è¯·ç¡®ä¿åœ¨SignalRå®¢æˆ·ç«¯JavaScriptæ–‡ä»¶ä¹‹å‰å¼•ç”¨äº†jQueryã€‚",
-        noTransportOnInit: "æ— æ³•æˆåŠŸåˆå§‹åŒ–ä¼ è¾“ã€‚å°è¯•æŒ‡å®šä¸åŒçš„ä¼ è¾“æ–¹å¼ï¼Œæˆ–è€…å–æ¶ˆè‡ªåŠ¨åˆå§‹åŒ–ã€‚",
-        errorOnNegotiate: "åœ¨åå•†è¯·æ±‚æœŸé—´å‘ç”Ÿé”™è¯¯ã€‚",
-        stoppedWhileLoading: "è¿æ¥åœ¨é¡µé¢åŠ è½½æœŸé—´è¢«åœæ­¢ã€‚",
-        stoppedWhileNegotiating: "è¿æ¥åœ¨åå•†è¯·æ±‚æœŸé—´è¢«åœæ­¢ã€‚",
-        errorParsingNegotiateResponse: "è§£æåå•†å“åº”æ—¶å‡ºé”™ã€‚",
-        errorRedirectionExceedsLimit: "è¶…è¿‡äº†åå•†é‡å®šå‘é™åˆ¶ã€‚",
-        errorDuringStartRequest: "å¯åŠ¨è¯·æ±‚æœŸé—´å‡ºé”™ã€‚è¿æ¥è¢«åœæ­¢ã€‚",
-        errorFromServer: "ä»æœåŠ¡å™¨æ¥æ”¶åˆ°é”™è¯¯æ¶ˆæ¯ï¼š'{0}'ã€‚",
-        stoppedDuringStartRequest: "è¿æ¥åœ¨å¯åŠ¨è¯·æ±‚æœŸé—´è¢«åœæ­¢ã€‚",
-        errorParsingStartResponse: "è§£æå¯åŠ¨å“åº”å‡ºé”™ï¼š'{0}'ã€‚è¿æ¥è¢«åœæ­¢ã€‚",
-        invalidStartResponse: "æ— æ•ˆçš„å¯åŠ¨å“åº”ï¼š'{0}'ã€‚è¿æ¥è¢«åœæ­¢ã€‚",
-        protocolIncompatible: "æ‚¨æ­£åœ¨ä½¿ç”¨ä¸æœåŠ¡å™¨ä¸å…¼å®¹çš„å®¢æˆ·ç«¯ç‰ˆæœ¬ã€‚å®¢æˆ·ç«¯ç‰ˆæœ¬{0}ï¼ŒæœåŠ¡å™¨ç‰ˆæœ¬{1}ã€‚",
-        aspnetCoreSignalrServer: "æ£€æµ‹åˆ°è¿æ¥å°è¯•åˆ°ASP.NET Core SignalRæœåŠ¡å™¨ã€‚æ­¤å®¢æˆ·ç«¯ä»…æ”¯æŒè¿æ¥åˆ°ASP.NET SignalRæœåŠ¡å™¨ã€‚è¯·å‚é˜…https://aka.ms/signalr-core-differencesäº†è§£è¯¦æƒ…ã€‚",
-        sendFailed: "å‘é€å¤±è´¥ã€‚",
-        parseFailed: "è§£æå“åº”å¤±è´¥ï¼š{0}",
-        longPollFailed: "é•¿è½®è¯¢è¯·æ±‚å¤±è´¥ã€‚",
-        eventSourceFailedToConnect: "EventSourceè¿æ¥å¤±è´¥ã€‚",
-        eventSourceError: "EventSourceå¼•å‘çš„é”™è¯¯",
-        webSocketClosed: "WebSocketå·²å…³é—­ã€‚",
-        pingServerFailedInvalidResponse: "åœ¨å‘æœåŠ¡å™¨å‘é€pingæ—¶æ”¶åˆ°æ— æ•ˆçš„å“åº”ï¼š'{0}'ã€‚",
-        pingServerFailed: "æ— æ³•pingæœåŠ¡å™¨ã€‚",
-        pingServerFailedStatusCode: "æ— æ³•pingæœåŠ¡å™¨ã€‚æœåŠ¡å™¨ä»¥çŠ¶æ€ç {0}å“åº”ï¼Œè¿æ¥è¢«åœæ­¢ã€‚",
-        pingServerFailedParse: "æ— æ³•è§£æpingæœåŠ¡å™¨å“åº”ï¼Œè¿æ¥è¢«åœæ­¢ã€‚",
-        noConnectionTransport: "è¿æ¥å¤„äºæ— æ•ˆçŠ¶æ€ï¼Œæ²¡æœ‰æ´»åŠ¨çš„ä¼ è¾“ã€‚",
-        webSocketsInvalidState: "Web Socketä¼ è¾“å¤„äºæ— æ•ˆçŠ¶æ€ï¼Œæ­£åœ¨è½¬æ¢ä¸ºé‡æ–°è¿æ¥çŠ¶æ€ã€‚",
-        reconnectTimeout: "æ— æ³•åœ¨é…ç½®çš„è¶…æ—¶æ—¶é—´{0}æ¯«ç§’å†…é‡æ–°è¿æ¥ï¼Œæ–­å¼€è¿æ¥ã€‚",
-        reconnectWindowTimeout: "å®¢æˆ·ç«¯è‡ª{0}ä»¥æ¥å¤„äºéæ´»åŠ¨çŠ¶æ€ï¼Œå·²è¶…è¿‡{1}æ¯«ç§’çš„éæ´»åŠ¨è¶…æ—¶æ—¶é—´ã€‚åœæ­¢è¿æ¥ã€‚",
-        jsonpNotSupportedWithAccessToken: "JSONPåè®®ä¸æ”¯æŒéœ€è¦Bearerä»¤ç‰Œè¿æ¥çš„è¿æ¥ï¼Œä¾‹å¦‚Azure SignalRæœåŠ¡ã€‚"
+        nojQuery: "Î´ÕÒµ½jQuery¡£ÇëÈ·±£ÔÚSignalR¿Í»§¶ËJavaScriptÎÄ¼şÖ®Ç°ÒıÓÃÁËjQuery¡£",
+        noTransportOnInit: "ÎŞ·¨³É¹¦³õÊ¼»¯´«Êä¡£³¢ÊÔÖ¸¶¨²»Í¬µÄ´«Êä·½Ê½£¬»òÕßÈ¡Ïû×Ô¶¯³õÊ¼»¯¡£",
+        errorOnNegotiate: "ÔÚĞ­ÉÌÇëÇóÆÚ¼ä·¢Éú´íÎó¡£",
+        stoppedWhileLoading: "Á¬½ÓÔÚÒ³Ãæ¼ÓÔØÆÚ¼ä±»Í£Ö¹¡£",
+        stoppedWhileNegotiating: "Á¬½ÓÔÚĞ­ÉÌÇëÇóÆÚ¼ä±»Í£Ö¹¡£",
+        errorParsingNegotiateResponse: "½âÎöĞ­ÉÌÏìÓ¦Ê±³ö´í¡£",
+        errorRedirectionExceedsLimit: "³¬¹ıÁËĞ­ÉÌÖØ¶¨ÏòÏŞÖÆ¡£",
+        errorDuringStartRequest: "Æô¶¯ÇëÇóÆÚ¼ä³ö´í¡£Á¬½Ó±»Í£Ö¹¡£",
+        errorFromServer: "´Ó·şÎñÆ÷½ÓÊÕµ½´íÎóÏûÏ¢£º'{0}'¡£",
+        stoppedDuringStartRequest: "Á¬½ÓÔÚÆô¶¯ÇëÇóÆÚ¼ä±»Í£Ö¹¡£",
+        errorParsingStartResponse: "½âÎöÆô¶¯ÏìÓ¦³ö´í£º'{0}'¡£Á¬½Ó±»Í£Ö¹¡£",
+        invalidStartResponse: "ÎŞĞ§µÄÆô¶¯ÏìÓ¦£º'{0}'¡£Á¬½Ó±»Í£Ö¹¡£",
+        protocolIncompatible: "ÄúÕıÔÚÊ¹ÓÃÓë·şÎñÆ÷²»¼æÈİµÄ¿Í»§¶Ë°æ±¾¡£¿Í»§¶Ë°æ±¾{0}£¬·şÎñÆ÷°æ±¾{1}¡£",
+        aspnetCoreSignalrServer: "¼ì²âµ½Á¬½Ó³¢ÊÔµ½ASP.NET Core SignalR·şÎñÆ÷¡£´Ë¿Í»§¶Ë½öÖ§³ÖÁ¬½Óµ½ASP.NET SignalR·şÎñÆ÷¡£Çë²ÎÔÄhttps://aka.ms/signalr-core-differencesÁË½âÏêÇé¡£",
+        sendFailed: "·¢ËÍÊ§°Ü¡£",
+        parseFailed: "½âÎöÏìÓ¦Ê§°Ü£º{0}",
+        longPollFailed: "³¤ÂÖÑ¯ÇëÇóÊ§°Ü¡£",
+        eventSourceFailedToConnect: "EventSourceÁ¬½ÓÊ§°Ü¡£",
+        eventSourceError: "EventSourceÒı·¢µÄ´íÎó",
+        webSocketClosed: "WebSocketÒÑ¹Ø±Õ¡£",
+        pingServerFailedInvalidResponse: "ÔÚÏò·şÎñÆ÷·¢ËÍpingÊ±ÊÕµ½ÎŞĞ§µÄÏìÓ¦£º'{0}'¡£",
+        pingServerFailed: "ÎŞ·¨ping·şÎñÆ÷¡£",
+        pingServerFailedStatusCode: "ÎŞ·¨ping·şÎñÆ÷¡£·şÎñÆ÷ÒÔ×´Ì¬Âë{0}ÏìÓ¦£¬Á¬½Ó±»Í£Ö¹¡£",
+        pingServerFailedParse: "ÎŞ·¨½âÎöping·şÎñÆ÷ÏìÓ¦£¬Á¬½Ó±»Í£Ö¹¡£",
+        noConnectionTransport: "Á¬½Ó´¦ÓÚÎŞĞ§×´Ì¬£¬Ã»ÓĞ»î¶¯µÄ´«Êä¡£",
+        webSocketsInvalidState: "Web Socket´«Êä´¦ÓÚÎŞĞ§×´Ì¬£¬ÕıÔÚ×ª»»ÎªÖØĞÂÁ¬½Ó×´Ì¬¡£",
+        reconnectTimeout: "ÎŞ·¨ÔÚÅäÖÃµÄ³¬Ê±Ê±¼ä{0}ºÁÃëÄÚÖØĞÂÁ¬½Ó£¬¶Ï¿ªÁ¬½Ó¡£",
+        reconnectWindowTimeout: "¿Í»§¶Ë×Ô{0}ÒÔÀ´´¦ÓÚ·Ç»î¶¯×´Ì¬£¬ÒÑ³¬¹ı{1}ºÁÃëµÄ·Ç»î¶¯³¬Ê±Ê±¼ä¡£Í£Ö¹Á¬½Ó¡£",
+        jsonpNotSupportedWithAccessToken: "JSONPĞ­Òé²»Ö§³ÖĞèÒªBearerÁîÅÆÁ¬½ÓµÄÁ¬½Ó£¬ÀıÈçAzure SignalR·şÎñ¡£"
     };
 
     if (typeof ($) !== "function") {
